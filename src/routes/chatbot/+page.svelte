@@ -12,6 +12,8 @@
 		bot: true
 	}];
 
+	let language = 'English'
+
 	const sendMessage = async () => {
 		const textInput:HTMLInputElement|null = document.querySelector("#textInput");
 		let text;
@@ -28,7 +30,8 @@
 			const res = await graphql.request(CHAT_RESPONSE, {
 				data: {
 					message: text,
-					previousMessages: messages
+					previousMessages: messages,
+					language
 				},
 			})
 			console.log(res)
