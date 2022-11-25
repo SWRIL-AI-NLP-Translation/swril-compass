@@ -1,0 +1,56 @@
+$colors: (
+	primary: #40B59F,
+	secondary: #C4DAD6,
+	background: #ffffff,
+	font: #363361,
+	lightGrey: #c4d1cc
+);
+@function color($key) {
+	@if not map-has-key($colors, $key) {
+		@warn "Color `#{$key}` not found.";
+	}
+	@return map-get($colors, $key);
+}
+@function textOutline($thickness, $color) {
+	@return $thickness $thickness $color, #{-$thickness} #{-$thickness} $color,
+		$thickness #{-$thickness} $color, #{-$thickness} $thickness $color, 0px $thickness $color,
+		$thickness 0px $color, #{-$thickness} 0px $color, 0px #{-$thickness} $color;
+}
+@font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+	font-weight: normal;
+    src: url('/fonts/Noto_Sans/NotoSans-Regular.ttf');
+}
+@font-face {
+    font-family: 'Noto Sans';
+    font-style: italic;
+	font-weight: normal;
+    src: url('/fonts/Noto_Sans/NotoSans-Italic.ttf');
+}
+@font-face {
+    font-family: 'Noto Sans';
+    font-style: normal;
+	font-weight: bold;
+    src: url('/fonts/Noto_Sans/NotoSans-Bold.ttf');
+}
+@font-face {
+    font-family: 'Noto Sans';
+    font-style: italic;
+	font-weight: bold;
+    src: url('/fonts/Noto_Sans/NotoSans-BoldItalic.ttf');
+}
+* {
+	margin: 0;
+	padding: 0;
+	font-family: 'Noto Sans';
+	color: color('font');
+	text-decoration: none;
+
+	// for layout debugging:
+	// background: rgba(0, 100, 0, 0.1) !important;
+}
+h1 {
+	text-align: center;
+}
+
