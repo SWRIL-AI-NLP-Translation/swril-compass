@@ -1,0 +1,7 @@
+version: '3'
+services:
+    translate:
+        build: '.'
+        image: 'swril/compass:0.1.0'
+        ports:
+            - '8082:8082'
