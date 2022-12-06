@@ -1,6 +1,6 @@
 version: '3'
 services:
-    translate:
+    compass:
         build: '.'
         image: 'swril/compass:0.2.0'
         ports:
