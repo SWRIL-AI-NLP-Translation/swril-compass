@@ -4,7 +4,7 @@ import { dev } from '$app/environment';
 
 const forceProduction = false;
 
-const endpoint = (dev && !forceProduction) ? 'http://localhost:8080/graphql' : 'https://api.swril.ca';
+const endpoint = (dev && !forceProduction) ? 'http://localhost:8080/graphql' : 'https://api.swril.ca/graphql';
 export const graphql = new GraphQLClient(endpoint, { headers: {
 	// 'Authorization': `Bearer ${Cookies.get('token')}`
 }});
