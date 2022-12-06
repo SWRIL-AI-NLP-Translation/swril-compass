@@ -1,23 +1,27 @@
 <script lang="ts">
 	import robot from '$lib/images/robot.png';
-	import Settings from '$lib/components/settings.svelte';
-	import { COLORS } from '$lib/styles/colors';
+	import SettingsMenu from '$lib/components/SettingsMenu.svelte';
 	import type { MessageType } from '$lib/types/message';
 	import Message from './message.svelte';
 	import { graphql } from '$lib/data/graphql';
 	import { CHAT_RESPONSE } from '$lib/data/queries/chatResponse';
+	import type { LanguageType } from '$lib/types/languages';
 
 	let messages: MessageType[] = [{
 		text: 'How can I help you?',
 		bot: true
 	}];
 
-	let language = 'English'
+	let language:LanguageType = 'English'
 
 	const sendMessage = async () => {
 		const textInput:HTMLInputElement|null = document.querySelector("#textInput");
+		const languageInput:HTMLInputElement|null = document.querySelector("#languageInput");
 		let text;
-		if (textInput) text = textInput.value;
+		if (textInput && languageInput) {
+			text = textInput.value;
+			language = languageInput.value as LanguageType;
+		}
 		else return
 		if (text.length === 0) return
 		messages.push({
@@ -56,7 +60,7 @@
 		<img src={robot} alt="robot" />
 		<h1>Chatbot</h1>
 		<div>
-			<Settings color={COLORS.primary}/>
+			<SettingsMenu language={language} />
 		</div>
 	</header>
 	<section class="dialogue">
@@ -65,7 +69,12 @@
 			<Message message={message} />
 		{/each}
 		<div class="chatInput">
-			<input id="textInput" type="text" placeholder="Type here" on:change={(newstuff) => {console.log(newstuff)}} />
+			<input 
+				id="textInput" 
+				type="text" 
+				placeholder="Type here" 
+				on:keydown={(e) => {if (e.key === 'Enter') sendMessage()}}
+			/>
 			<button on:click={sendMessage}>SEND</button>
 		</div>
 	</section>
