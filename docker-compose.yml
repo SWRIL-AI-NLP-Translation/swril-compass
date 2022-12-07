@@ -2,6 +2,6 @@ version: '3'
 services:
     compass:
         build: '.'
-        image: 'swril/compass:1.0.0'
+        image: 'swril/compass:1.1.0'
         ports:
             - '8082:8082'

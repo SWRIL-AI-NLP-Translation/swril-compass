@@ -5,6 +5,7 @@
 
 
 	export let message: MessageType;
+	let paragraphs = message.text.split('\n');
 </script>
 
 <div class="container">
@@ -15,7 +16,10 @@
 	</div>
 	<div class={message.bot?'botContent':'userContent'}>
 		<p>
-			{message.text}
+			{#each paragraphs as paragraph}
+				{paragraph}
+				<br />
+			{/each}
 		</p>
 	</div>
 	<div class="userSender">

@@ -6,6 +6,7 @@
 	import { graphql } from '$lib/data/graphql';
 	import { CHAT_RESPONSE } from '$lib/data/queries/chatResponse';
 	import type { LanguageType } from '$lib/types/languages';
+	import { parseCityServices } from '$lib/modules/parseCityServices';
 
 	let messages: MessageType[] = [{
 		text: 'How can I help you?',
@@ -43,9 +44,21 @@
 			if (!data) {
 				console.error(res.errors)
 			} else {
+				console.log('hi')
+				const {text, cityServices} = parseCityServices(data.message)
 				messages.push({
-					text: data.message,
+					text,
 					bot: true
+				})
+				cityServices.forEach((service) => {
+					let message = service.name
+					if (service.address) message += `\n Address: ${service.address}`
+					if (service.phoneNumber) message += `\n Phone: ${service.phoneNumber}`
+					if (service.website) message += `\n Website: ${service.website}`
+					messages.push({
+						text: message,
+						bot: true
+					})
 				})
 				messages = messages
 			}
